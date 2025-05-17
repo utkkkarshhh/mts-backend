@@ -1,5 +1,5 @@
 __all__ = [
-    'Tasks',    
+    'TaskBatch',    
 ]
 
-from app.models.tasks import Tasks
+from app.models.task_batch import TaskBatch

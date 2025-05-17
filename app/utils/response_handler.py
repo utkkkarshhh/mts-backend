@@ -2,11 +2,13 @@ import json
 from enum import Enum
 
 from fastapi import Response
+from pydantic import BaseModel
 
 
 class ResponseHandler(Response):
     def __init__(
         self,
+        content_obj=None,
         data=None,
         success=None,
         status=None,
@@ -17,6 +19,8 @@ class ResponseHandler(Response):
     ):
         content = {}
         
+        if content_obj:
+            content = self._make_json_serializable(content_obj)
         if data:
             content["data"] = self._make_json_serializable(data)
         if success is not None:
@@ -33,7 +37,9 @@ class ResponseHandler(Response):
         )
     
     def _make_json_serializable(self, obj):
-        if isinstance(obj, Enum):
+        if isinstance(obj, BaseModel):
+            return obj.dict()
+        elif isinstance(obj, Enum):
             return obj.value
         elif isinstance(obj, dict):
             return {k: self._make_json_serializable(v) for k, v in obj.items()}

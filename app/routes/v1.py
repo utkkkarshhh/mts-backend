@@ -4,7 +4,7 @@ from app.views import *
 
 routes = [
     ("/healthcheck", HealthCheck.get, ["GET"]),
-    ("/create_task/batch", CreateTaskView.post, ["POST"]),
+    ("/create_tasks/batch", CreateTaskView.post, ["POST"]),
 ]
 
 v1_router = APIRouter()

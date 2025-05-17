@@ -1,5 +1,5 @@
 __all__ = [
-    "CreateTaskManager",
+    "TaskManager",
 ]
 
-from app.managers.create_task_manager import CreateTaskManager
+from app.managers.task_manager import TaskManager
