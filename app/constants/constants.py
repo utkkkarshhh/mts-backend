@@ -1,6 +1,11 @@
 from enum import Enum
 from typing import List
 
+from rq import Queue
+
+from app.redis.client import redis_client
+
+
 class Constants:
     TASK_STATUS = {
         'PENDING': 'pending',
@@ -36,3 +41,14 @@ class PriorityLevels(Enum):
             cls.P1.value,
             cls.P2.value
         ]
+
+class PriorityQueues:
+    LOW = Queue("LOW", connection=redis_client)
+    MEDIUM = Queue("MEDIUM", connection=redis_client)
+    HIGH = Queue("HIGH", connection=redis_client)
+
+    PRIORITY_TO_QUEUE = {
+        "p0": LOW,
+        "p1": MEDIUM,
+        "p2": HIGH,
+    }
